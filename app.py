@@ -94,7 +94,6 @@ def start_conversation() -> None:
 
 
 def select_conversation(conversation_id: int) -> None:
-    """Switch conversations without executing stored queries."""
     if st.session_state.get("active_dialog") == "voice":
         close_dialog()
     st.session_state.active_conversation = conversation_id
@@ -125,7 +124,6 @@ def queue_example(label: str) -> None:
 
 
 def active_conversation() -> dict:
-    """Find the conversation currently displayed in the chat."""
     return next(
         item for item in st.session_state.conversations
         if item["id"] == st.session_state.active_conversation
@@ -184,19 +182,16 @@ def use_database(database_id: str) -> None:
 
 
 def change_database() -> None:
-    """Handle a database selection from the toolbar."""
     if refresh_active_conversation():
         use_database(st.session_state.database_selection)
 
 
 def databases(include_archived: bool = False) -> list[dict]:
-    """Combine the demo with locally stored uploads."""
     demo = {"id": "demo", "name": "E-commerce (demo)", "path": str(DEFAULT_DB_PATH), "archived": False}
     return [demo, *list_imported_databases(include_archived)]
 
 
 def close_dialog() -> None:
-    """Clear the dialog flag when the user closes its window."""
     if st.session_state.get("active_dialog") == "voice":
         clear_voice_recording()
         st.session_state.pop("voice_target", None)
@@ -220,7 +215,6 @@ def open_voice_input() -> None:
 
 
 def render_transcription_usage(usage: list[dict]) -> None:
-    """Show duration-based audio costs separately from SQL token counters."""
     if usage:
         seconds = sum(item["seconds"] for item in usage)
         cost = sum(item["estimated_usd"] for item in usage)
@@ -323,7 +317,6 @@ def configure_ai() -> None:
 
 @st.dialog("O danych", width="large", on_dismiss=close_dialog)
 def show_data(database: dict) -> None:
-    """Browse every table/view with raw column names and paginated data."""
     st.caption(database["name"])
     try:
         tables = get_tables(database["path"])
@@ -365,7 +358,6 @@ def show_data(database: dict) -> None:
 
 
 def upload_database() -> None:
-    """Save a validated local database copy and select it for a conversation."""
     st.write("Wybierz bazę, na której chcesz wykonywać analizy.")
     file = st.file_uploader(
         "Plik bazy", type=["db", "sqlite", "sqlite3"], max_upload_size=50,
@@ -386,7 +378,6 @@ def upload_database() -> None:
 
 @st.dialog("Bazy danych", width="medium", on_dismiss=close_dialog)
 def manage_databases() -> None:
-    """Show database metadata, names, uploads and recoverable removal."""
     available_tab, upload_tab, trash_tab = st.tabs(["Dostępne", "Dodaj bazę", "Kosz"])
     all_databases = databases(include_archived=True)
     with upload_tab:
@@ -437,7 +428,6 @@ def manage_databases() -> None:
 
 
 def example_buttons() -> None:
-    """Display four starting points in a small, responsive grid."""
     labels = list(EXAMPLE_QUERIES)
     with st.container(key="suggestions"):
         for start in (0, 2):
@@ -479,7 +469,6 @@ def analyze_example(title: str) -> dict:
 
 
 def render_data(entry: dict) -> None:
-    """Display a result table and secondary SQL/export details."""
     frame = entry["frame"]
     try:
         check_frame(frame)
@@ -540,7 +529,6 @@ def render_api_usage(entry: dict) -> None:
 
 
 def render_result(entry: dict, expanded: bool) -> None:
-    """Show the user's question once and keep older result tables collapsible."""
     if entry.get("source") == "corrupt":
         st.warning(entry["error"])
         return
@@ -586,7 +574,6 @@ def render_result(entry: dict, expanded: bool) -> None:
 
 
 def main() -> None:
-    """Display a chat with conversation navigation on the left."""
     st.set_page_config(
         page_title="SQL Assistant", page_icon=":material/query_stats:", layout="wide",
     )

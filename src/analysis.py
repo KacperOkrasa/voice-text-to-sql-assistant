@@ -16,7 +16,6 @@ ROW_LIMIT = 1000
 
 
 def new_entry(title: str, sql: str = "") -> dict:
-    """Build a history entry shared by AI questions and manual SQL."""
     return {"title": title, "sql": sql.strip(),
             "created_at": datetime.now(ZoneInfo("Europe/Warsaw")).strftime("%Y-%m-%d %H:%M"),
             "frame": pd.DataFrame(), "error": None, "clarification": None,

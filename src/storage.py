@@ -186,7 +186,6 @@ def create_conversation(database_id: str = "demo") -> dict:
 
 
 def load_conversations() -> list[dict]:
-    """Load all local conversations and their stored results."""
     with closing(get_storage_connection()) as connection:
         columns = {row["name"] for row in connection.execute("PRAGMA table_info(conversations)")}
         # Old trash entries stay hidden; current deletions remove the rows entirely.
@@ -248,7 +247,6 @@ def conversation_exists(conversation_id: int) -> bool:
 
 
 def save_active_conversation(conversation_id: int) -> None:
-    """Remember the last opened conversation for the local installation."""
     with closing(get_storage_connection()) as connection, connection:
         connection.execute(
             "INSERT INTO settings (key, value) VALUES ('active_conversation', ?) "
@@ -283,7 +281,6 @@ def save_analysis(entry: dict) -> None:
 
 
 def register_database(database: dict) -> None:
-    """Keep an imported database available after a restart."""
     with closing(get_storage_connection()) as connection, connection:
         connection.execute(
             "INSERT INTO databases (id, name, path, imported_at) VALUES (?, ?, ?, ?) "
@@ -301,7 +298,6 @@ def list_imported_databases(include_archived: bool = False) -> list[dict]:
 
 
 def rename_database(database_id: str, name: str) -> None:
-    """Change the display name, leaving the copied SQLite file untouched."""
     name = name.strip()
     if not name or len(name) > 80:
         raise ValueError("Nazwa bazy musi mieć od 1 do 80 znaków.")

@@ -7,9 +7,6 @@ Użytkownik wpisuje lub dyktuje pytanie, a aplikacja generuje SQL, sprawdza
 uprawnienia zapytania i prezentuje wynik w tabeli. Kolejne wiadomości mogą
 kontynuować analizę, np. „A tylko we wrześniu?”.
 
-Projekt portfolio pokazujący pracę z Pythonem, relacyjnymi danymi, integracją API,
-walidacją SQL oraz testami logiki i interfejsu. Dane demonstracyjne są syntetyczne.
-
 **Technologie:** Python · SQLite · Pandas · Streamlit · OpenAI SDK · JavaScript / Web Speech API.
 
 > **Rekordy z tabel nie są wysyłane do modelu generującego SQL.**
@@ -21,8 +18,7 @@ walidacją SQL oraz testami logiki i interfejsu. Dane demonstracyjne są syntety
 
 ![Rozmowa i wynik miesięcznej analizy na syntetycznych danych e-commerce](docs/screenshots/02-wyniki.jpg)
 
-*Rzeczywisty interfejs aplikacji. Na zrzucie działa wbudowany przykład bez klucza API;
-nie jest to demonstracja odpowiedzi wygenerowanej przez model.*
+*Wbudowany przykład na syntetycznych danych e-commerce, uruchomiony bez API.*
 
 <details>
 <summary>Więcej zrzutów: ekran startowy i schemat dla AI</summary>
@@ -31,8 +27,7 @@ nie jest to demonstracja odpowiedzi wygenerowanej przez model.*
 
 ![Podgląd metadanych: nazwy i typy kolumn bez wartości z rekordów](docs/screenshots/03-schemat-ai.jpg)
 
-Zrzuty wykonano w czystej instalacji na danych syntetycznych.
-[Opis ich odtworzenia](docs/SCREENSHOTS.md).
+[Jak odtworzyć te widoki](docs/SCREENSHOTS.md).
 
 </details>
 
@@ -44,7 +39,7 @@ Zrzuty wykonano w czystej instalacji na danych syntetycznych.
 - Generuje zapytania SQL na podstawie pytania i schematu wybranej bazy.
 - Dopytuje o niejasne pytanie i przyjmuje krótką odpowiedź bez powtarzania całej treści.
 - Pozwala kontynuować ostatnią analizę w ramach tej samej rozmowy.
-- Dyktuje tekst na żywo do pola wiadomości; użytkownik sprawdza go przed wysłaniem.
+- Wpisuje dyktowane pytanie na żywo do pola wiadomości, do sprawdzenia przed wysłaniem.
 - Przyjmuje własne pliki SQLite i pokazuje tabele, kolumny oraz relacje.
 - Zapisuje rozmowy i wyniki lokalnie, odtwarzając je bez ponownego wywołania modelu.
 - Udostępnia tabelę wyników, zwijany podgląd SQL, kopiowanie kodu i eksport CSV.
@@ -56,7 +51,7 @@ Interfejs służy do pytań w zwykłym języku. Nie ma edytora SQL ani importu p
 
 ## Szybki start
 
-Wymagania: **Python 3.12** (wersja używana do lokalnej weryfikacji).
+Wymagania: **Python 3.12**.
 SQLite jest częścią standardowej biblioteki Pythona i nie wymaga osobnego serwera.
 Pobierz repozytorium i przejdź do katalogu projektu:
 
@@ -193,10 +188,6 @@ nie uruchamiają naprawy. Błąd API można ponowić ręcznie.
 
 ## Prywatność i zabezpieczenia
 
-**Model generuje SQL na podstawie struktury bazy. Nie otrzymuje tabel z rekordami
-ani tabeli wynikowej.** Odczyt wartości i obliczenia wykonuje lokalny SQLite.
-Aplikacja nie prosi modelu o podsumowanie zwróconych wierszy.
-
 | Informacja | Czy aplikacja dołącza ją do żądania generowania SQL? |
 | --- | --- |
 | Nazwy tabel/widoków i kolumn, typy, klucze i relacje | Tak |
@@ -220,14 +211,8 @@ np. nazwa kolumny widoku może wynikać z literału. Aplikacja nie gwarantuje ic
 anonimizacji. Opis dotyczy tego, co wysyła aplikacja — nie jest deklaracją zasad
 retencji ani trenowania modeli u dostawcy API.
 
+Schemat wysyłany do modelu można obejrzeć w **O danych → Schemat dla AI**.
 
-- Do modelu trafiają pytanie, metadane tabel i ograniczony kontekst: poprzednie
-  pytanie z wygenerowanym SQL lub wymiana doprecyzowań. Naprawa otrzymuje SQL
-  i ogólną kategorię błędu, bez surowego komunikatu SQLite.
-- Kod budujący żądanie nie dołącza pliku bazy, rekordów ani wynikowego DataFrame.
-  Schemat pomija wartości DEFAULT, wyrażenia CHECK i definicje widoków.
-- Pytania i nazwy obiektów mogą zawierać poufne informacje. Ograniczenie do metadanych
-  nie jest anonimizacją. Schemat można obejrzeć w **O danych → Schemat dla AI**.
 - Filtr wklejonego SQL jest heurystyką, nie narzędziem wykrywania wszystkich sekretów.
   Jest zachowawczy: słowo `SELECT` może zablokować również zwykłe zdanie.
 - Generowany SQL przechodzi walidację pojedynczego zapytania odczytu oraz autoryzator
@@ -270,11 +255,6 @@ W **SQL i eksport** dostępne są dwa warianty:
 - **Surowy CSV**: oryginalne nazwy i wartości, np. grosze w `_cents`.
   Przeznaczony do przetwarzania w kodzie; nie neutralizuje formuł arkusza.
 
-Starsza historia jest odczytywana bez masowego przepisywania. Wadliwy albo
-przekraczający nowe limity wpis wyświetla komunikat zamiast blokować rozmowę;
-oryginalny zapis pozostaje na dysku. Poprawka nie odzyskuje cyfr utraconych
-przed aktualizacją — taką analizę trzeba wykonać ponownie.
-
 ## Testy
 
 ```bash
@@ -292,30 +272,19 @@ Obejmują m.in. blokowanie zapisów, prywatność żądań, naprawę SQL, kontyn
 trwałość historii, import baz oraz przebieg interfejsu i dyktowania.
 Node.js nie jest wymagany do uruchomienia aplikacji.
 
-Weryfikacja z 11 października 2026 w czystym środowisku Python 3.12:
-**173 testy Python i 4 testy JavaScript zakończone powodzeniem**.
-Zależności zainstalowano z PyPI; `pip check` nie wykazał konfliktów.
+[GitHub Actions](.github/workflows/tests.yml) uruchamia testy i sprawdza zależności
+po każdym pushu oraz przy pull requestach, na Pythonie 3.12 i Node.js 22.
+Testy z atrapami API nie mierzą trafności modelu ani jakości rozpoznawania mowy.
 
-[Workflow GitHub Actions](.github/workflows/tests.yml) uruchamia instalację,
-kontrolę zgodności zależności i oba zestawy testów po pushu oraz przy pull requestach.
-Nie potrzebuje sekretów API. [Pierwszy przebieg na GitHubie](https://github.com/KacperOkrasa/voice-text-to-sql-assistant/actions/runs/38155092758)
-zakończył się powodzeniem 11 października 2026 na Linuxie, Pythonie 3.12 i Node.js 22.
-Aktualny status pokazuje odznaka u góry README. Testy z atrapami nie mierzą
-trafności rzeczywistego modelu ani jakości fizycznego mikrofonu.
+## Ograniczenia i plan prac
 
-## Znane ograniczenia i dalsze prace
+Poprawny składniowo SQL może błędnie interpretować pytanie. Warto porównywać
+wyniki z zapytaniami kontrolnymi, szczególnie przy łączeniu kilku tabel.
+Dyktowanie zależy od obsługi rozpoznawania mowy w przeglądarce.
 
-Projekt jest rozwijanym demonstratorem. Kolejne prace obejmują pełniejszy schemat
-(kolumny wygenerowane), wybór tabel udostępnianych AI, poprawki dyktowania,
-wydajność długich rozmów i ocenę jakości rzeczywistego modelu. Poprawny składniowo, bezpieczny SQL nadal może
-błędnie interpretować pytanie.
+Dalsze prace: [plan rozwoju](docs/ROADMAP.md).
+Opis zabezpieczeń i zgłaszania problemów: [SECURITY.md](SECURITY.md).
 
-Plan poprawek i przygotowania repozytorium: [ROADMAP](docs/ROADMAP.md).
+## Licencja
 
-## Praca nad projektem
-
-[Instrukcja dla współtwórców](CONTRIBUTING.md) ·
-[Zakres bezpieczeństwa](SECURITY.md) ·
-[Lista przed publikacją](docs/PUBLICATION.md)
-
-**Licencja:** nie została jeszcze wybrana. Plik LICENSE zostanie dodany po decyzji autora.
+Licencja nie została jeszcze wybrana.

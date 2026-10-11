@@ -1,1 +1,0 @@
-"""Demo database generation utilities."""

@@ -20,8 +20,6 @@ wielu użytkowników ani środowiskiem izolującym dowolne niezaufane zapytania.
 
 Przygotuj minimalny przykład na syntetycznej bazie, wersję Pythona i opis zachowania.
 Nie publikuj kluczy API, `.env`, prywatnych baz, historii ani surowych odpowiedzi
-błędów dostawcy. Po utworzeniu repozytorium warto włączyć prywatne zgłoszenia
-bezpieczeństwa w GitHub i używać ich dla podatności zamiast publicznego issue.
+błędów dostawcy.
 
 Znane ograniczenia i plan prac znajdują się w [ROADMAP](docs/ROADMAP.md).
-Kontrola zgodności zależności (`pip check`) nie jest skanem ich podatności.
