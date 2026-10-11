@@ -1,0 +1,43 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Generated SQLite databases (recreate them with data.seed)
+data/*.db
+data/*.db-*
+data/*.sqlite
+data/*.sqlite-*
+data/*.sqlite3
+data/*.sqlite3-*
+data/uploads/
+
+# Editor and operating system files
+.DS_Store
+.idea/
+.vscode/
+
+# Private configuration, exports and local runtime files
+.streamlit/secrets.toml
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.log
+exports/
+.cache/
+
+# Old local setup screenshot; only docs/screenshots is intended for publication
+assets/api-setup.jpg

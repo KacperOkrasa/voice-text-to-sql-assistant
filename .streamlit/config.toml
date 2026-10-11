@@ -1,0 +1,18 @@
+[theme]
+base = "light"
+primaryColor = "#24272D"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F6F7F9"
+textColor = "#24272D"
+font = "sans serif"
+
+[browser]
+gatherUsageStats = false
+
+[server]
+headless = true
+address = "127.0.0.1"
+
+[client]
+# Use the explicit spreadsheet/raw exports with consistent units and text protection.
+disableDataExport = true

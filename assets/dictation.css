@@ -1,0 +1,8 @@
+.controls { display: flex; flex-direction: column; gap: 4px; font-family: var(--st-font, sans-serif); }
+button { display: flex; align-items: center; justify-content: center; gap: 5px; width: 100%; height: 40px; border: 1px solid #e2e4e8; border-radius: 12px; color: #24272d; background: white; font: inherit; font-size: 13px; cursor: pointer; }
+button:hover { background: #f3f4f6; }
+button[aria-pressed="true"] { background: #fff0f0; border-color: #e99b9b; color: #a32727; }
+button:disabled { opacity: .45; cursor: default; }
+button:focus-visible, select:focus-visible { outline: 2px solid #577cae; outline-offset: 2px; }
+svg { width: 16px; height: 16px; fill: currentColor; }
+select { width: 100%; height: 23px; border: 0; border-radius: 4px; color: #6f7580; background: transparent; font: inherit; font-size: 11px; text-align: center; cursor: pointer; }
