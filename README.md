@@ -1,5 +1,7 @@
 # Voice & Text-to-SQL Analytics Assistant
 
+[![Tests](https://github.com/KacperOkrasa/voice-text-to-sql-assistant/actions/workflows/tests.yml/badge.svg)](https://github.com/KacperOkrasa/voice-text-to-sql-assistant/actions/workflows/tests.yml)
+
 Lokalna aplikacja do zadawania pytań o dane SQLite po polsku i angielsku.
 Użytkownik wpisuje lub dyktuje pytanie, a aplikacja generuje SQL, sprawdza
 uprawnienia zapytania i prezentuje wynik w tabeli. Kolejne wiadomości mogą
@@ -296,8 +298,9 @@ Zależności zainstalowano z PyPI; `pip check` nie wykazał konfliktów.
 
 [Workflow GitHub Actions](.github/workflows/tests.yml) uruchamia instalację,
 kontrolę zgodności zależności i oba zestawy testów po pushu oraz przy pull requestach.
-Nie potrzebuje sekretów API. Workflow jest przygotowany; pierwszy wynik z GitHuba
-będzie dostępny dopiero po publikacji repozytorium. Testy z atrapami nie mierzą
+Nie potrzebuje sekretów API. [Pierwszy przebieg na GitHubie](https://github.com/KacperOkrasa/voice-text-to-sql-assistant/actions/runs/38155092758)
+zakończył się powodzeniem 11 października 2026 na Linuxie, Pythonie 3.12 i Node.js 22.
+Aktualny status pokazuje odznaka u góry README. Testy z atrapami nie mierzą
 trafności rzeczywistego modelu ani jakości fizycznego mikrofonu.
 
 ## Znane ograniczenia i dalsze prace

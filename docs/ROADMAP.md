@@ -92,5 +92,5 @@ plikach tekstowych. Nie odczytywano lokalnego `.env`. Kontrola wzorców nie zast
 pełnego skanera sekretów ani przeglądu plików przed późniejszym commitem.
 
 Repozytorium publiczne: [voice-text-to-sql-assistant](https://github.com/KacperOkrasa/voice-text-to-sql-assistant).
-Wynik pierwszego uruchomienia CI wymaga sprawdzenia po pushu.
+[Pierwszy przebieg CI](https://github.com/KacperOkrasa/voice-text-to-sql-assistant/actions/runs/38155092758) zakończył się powodzeniem.
 Licencja pozostaje niewybrana. [Status publikacji](PUBLICATION.md).

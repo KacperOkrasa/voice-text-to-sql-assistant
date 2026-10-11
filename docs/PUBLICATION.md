@@ -12,9 +12,9 @@
 - `pip check`: brak konfliktów; 173 testy Python i 4 testy JavaScript: OK.
 - Start czystej aplikacji i wykonanie przykładu bez API sprawdzone w przeglądarce.
 
-Nie wykonano pełnego skanu podatności zależności. GitHub Actions nie ma jeszcze
-wyniku z platformy — uruchomi się po publikacji. Lokalna weryfikacja była na macOS;
-Linux będzie sprawdzany przez przygotowany workflow.
+Nie wykonano pełnego skanu podatności zależności. Lokalna weryfikacja była na macOS.
+[Pierwszy przebieg GitHub Actions](https://github.com/KacperOkrasa/voice-text-to-sql-assistant/actions/runs/38155092758)
+zakończył się powodzeniem na Linuxie 11 października 2026.
 
 ## Status publikacji
 
@@ -24,7 +24,7 @@ Widoczność: publiczne. Gałąź główna: `main`.
 Publikowany jest wyłącznie katalog projektu, bez nadrzędnego workspace,
 klucza API, baz SQLite, historii rozmów i lokalnych eksportów.
 Licencja pozostaje niewybrana zgodnie z decyzją autora; pliku LICENSE nie dodano.
-Po pierwszym pushu należy potwierdzić wynik GitHub Actions.
+Pierwszy push i wynik GitHub Actions zostały potwierdzone.
 
 Pozostaje opcjonalnie przypiąć repozytorium do profilu oraz zdecydować o licencji.
 Przy kolejnych zmianach powtarzaj kontrolę plików przed commitem opisaną niżej.
